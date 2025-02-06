@@ -1,3 +1,4 @@
+
 package model;
 
 public class Card {
@@ -9,6 +10,7 @@ public class Card {
         this.cardID = cardID;
         this.owner = owner;
         this.isActive = true;
+
     }
 
     public String getCardID() {
