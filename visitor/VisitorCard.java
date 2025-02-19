@@ -14,7 +14,6 @@ public abstract class VisitorCard { // เปลี่ยนเป็น abstrac
         this.floor = floor;
         this.room = room;
     }
-
     public String getName() {
         return name;
     }
