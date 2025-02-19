@@ -1,6 +1,6 @@
 package visitor;
 
-public class VisitorCard {
+public abstract class VisitorCard { // เปลี่ยนเป็น abstract class
     private String name;
     private String id;
     private String visitorType;
@@ -15,11 +15,24 @@ public class VisitorCard {
         this.room = room;
     }
 
-    public String getName() { return name; }
-    public String getId() { return id; }
-    public String getVisitorType() { return visitorType; }
-    public String getFloor() { return floor; }
-    public String getRoom() { return room; }
+    public String getName() {
+        return name;
+    }
+    public String getId() {
+        return id;
+    }
+    public String getVisitorType() {
+        return visitorType;
+    }
+    public String getFloor() {
+        return floor;
+    }
+    public String getRoom() {
+        return room;
+    }
+
+    public abstract boolean accessFloor(String floor);
+    public abstract boolean accessRoom(String room);
 
     @Override
     public String toString() {
