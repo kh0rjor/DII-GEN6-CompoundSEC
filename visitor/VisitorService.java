@@ -17,6 +17,7 @@ public class VisitorService {
     public void listAllVisitors() {
         for (VisitorCard card : visitorCards) {
             System.out.println(card.getName() + " - " + card.getType());
+
         }
     }
 }
