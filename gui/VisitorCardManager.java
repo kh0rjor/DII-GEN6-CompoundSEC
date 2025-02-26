@@ -220,5 +220,6 @@ public class VisitorCardManager extends JFrame {
 
     public static void main(String[] args) {
         new VisitorCardManager(new AccessLogger()); // Pass logger for audit log
+
     }
 }

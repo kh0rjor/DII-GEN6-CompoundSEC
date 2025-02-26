@@ -39,5 +39,6 @@ public class AdminDashboard extends JFrame {
 
     public static void main(String[] args) {
         new AdminDashboard(new AccessLogger()); // Pass logger for audit log
+
     }
 }

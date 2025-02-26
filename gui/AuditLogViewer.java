@@ -45,5 +45,6 @@ public class AuditLogViewer extends JFrame {
 
     public static void main(String[] args) {
         new AuditLogViewer(new AccessLogger()); // Pass logger for audit log
+
     }
 }
