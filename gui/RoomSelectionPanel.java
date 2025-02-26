@@ -39,7 +39,7 @@ public class RoomSelectionPanel extends JFrame {
         setVisible(true);
     }
 
-    //upcasting
+    //upcasting and polymorphism
     private void handleAccess(String room) {
         AccessStrategy strategy;
 
