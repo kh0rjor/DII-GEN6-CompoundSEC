@@ -12,6 +12,7 @@ public class EmployeeAccess implements AccessStrategy {
     }
 
     @Override
+
     public boolean hasAccess(String room) {
         switch (room) {
             case "CEO Office":
