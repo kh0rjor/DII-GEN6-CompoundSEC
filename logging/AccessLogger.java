@@ -38,5 +38,6 @@ public class AccessLogger implements AccessObserver {
             return logs.stream().filter(log -> log.contains("Access Denied")).toList();
         }
         return logs;
+
     }
 }

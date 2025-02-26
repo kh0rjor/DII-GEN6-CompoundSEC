@@ -3,6 +3,7 @@ package admin;
 import java.time.LocalDateTime;
 
 public class VisitorCard {
+
     private String name;
     private String id;
     private String floor;
