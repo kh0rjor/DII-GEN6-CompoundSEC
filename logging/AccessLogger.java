@@ -40,4 +40,5 @@ public class AccessLogger implements AccessObserver {
         return logs;
 
     }
+
 }
