@@ -13,4 +13,5 @@ public abstract class CardDecorator implements AccessStrategy {
     public boolean hasAccess(String room) {
         return decoratedCard.hasAccess(room);
     }
+
 }

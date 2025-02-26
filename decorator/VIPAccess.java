@@ -16,4 +16,5 @@ public class VIPAccess extends CardDecorator {
     public boolean isAccessTimeValid() {
         return false;
     }
+
 }
