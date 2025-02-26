@@ -39,6 +39,7 @@ public class RoomSelectionPanel extends JFrame {
         setVisible(true);
     }
 
+    //upcasting
     private void handleAccess(String room) {
         AccessStrategy strategy;
 
