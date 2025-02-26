@@ -43,7 +43,7 @@ public class RoomSelectionPanel extends JFrame {
     private void handleAccess(String room) {
         AccessStrategy strategy;
 
-        // Determine access strategy based on user type
+        // Dynamic Biding: Determine access strategy based on user type
         switch (userType) {
             case "Visitor":
                 strategy = new VisitorAccess(logger);  // Pass the logger
