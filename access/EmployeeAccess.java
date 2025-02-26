@@ -36,4 +36,5 @@ public class EmployeeAccess implements AccessStrategy {
 
         return validTime;
     }
+
 }
