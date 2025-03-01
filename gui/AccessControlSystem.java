@@ -25,7 +25,7 @@ public class AccessControlSystem extends JFrame {
         JLabel roleLabel = new JLabel("Role:");
         roleComboBox = new JComboBox<>(new String[]{"Visitor", "Employee", "Admin"});
 
-        // Name and ID Fields (with validation)
+        // Name and ID Fields (No validation anymore, just save them for logs)
         JLabel nameLabel = new JLabel("Name:");
         nameField = new JTextField();
 
@@ -49,9 +49,15 @@ public class AccessControlSystem extends JFrame {
     }
 
     private void handleLogin() {
-        String role = (String) roleComboBox.getSelectedItem();
         String name = nameField.getText().trim();
         String id = idField.getText().trim();
+        String role = (String) roleComboBox.getSelectedItem();
+
+        // Check if the name and id are entered
+        if (name.isEmpty() || id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter both your Name and ID!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method if either name or id is empty
+        }
 
         // Log name and ID for auditing purposes
         logger.setUserInfo(name, id);  // Save user info to the logger
@@ -100,3 +106,4 @@ public class AccessControlSystem extends JFrame {
         new AccessControlSystem();
     }
 }
+
