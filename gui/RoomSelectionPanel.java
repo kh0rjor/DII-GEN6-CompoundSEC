@@ -1,10 +1,7 @@
 package gui;
 
-import logging.AccessLogger;
 import access.AccessStrategy;
-import access.VisitorAccess;
-import access.EmployeeAccess;
-import access.AdminAccess;
+import logging.AccessLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +12,13 @@ public class RoomSelectionPanel extends JFrame {
     private String floor;
     private String userType;
     private AccessLogger logger;
+    private AccessStrategy strategy;
 
-    public RoomSelectionPanel(String floor, String userType, AccessLogger logger) {
+    public RoomSelectionPanel(String floor, String userType, AccessLogger logger, AccessStrategy strategy) {
         this.floor = floor;
         this.userType = userType;
         this.logger = logger;
+        this.strategy = strategy;
 
         setTitle(floor + " - Select Room");
         setSize(600, 400);
@@ -39,29 +38,13 @@ public class RoomSelectionPanel extends JFrame {
         setVisible(true);
     }
 
-    //upcasting and polymorphism
     private void handleAccess(String room) {
-        AccessStrategy strategy;
-
-        // Dynamic Biding: Determine access strategy based on user type
-        switch (userType) {
-            case "Visitor":
-                strategy = new VisitorAccess(logger);  // Pass the logger
-                break;
-            case "Employee":
-                strategy = new EmployeeAccess(logger);  // Pass the logger
-                break;
-            default:
-                strategy = new AdminAccess(); // Admin has access to all rooms
-                break;
-        }
-
-        // Check if the time is valid
+        // Check if the time is valid using the strategy
         if (!strategy.isAccessTimeValid()) {
             JOptionPane.showMessageDialog(this, "Access Denied: Invalid Access Time.",
                     "Access Status", JOptionPane.ERROR_MESSAGE);
-            logger.update("Access Denied: " + room + " (Invalid Time)");  // Log the attempt
-            return; // Stop further access checks
+            logger.update("Access Denied: " + room + " (Invalid Time)");
+            return;
         }
 
         // Check if the user has access to the room
@@ -73,7 +56,6 @@ public class RoomSelectionPanel extends JFrame {
                 "Access Status",
                 hasAccess ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
     }
-
 
     private List<String> getRoomsForFloor(String floor) {
         return switch (floor) {

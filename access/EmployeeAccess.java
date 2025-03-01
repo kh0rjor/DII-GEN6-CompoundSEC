@@ -1,7 +1,6 @@
 package access;
 
 import logging.AccessLogger;
-
 import java.time.LocalTime;
 
 public class EmployeeAccess implements AccessStrategy {
@@ -12,7 +11,6 @@ public class EmployeeAccess implements AccessStrategy {
     }
 
     @Override
-
     public boolean hasAccess(String room) {
         switch (room) {
             case "CEO Office":
@@ -37,5 +35,4 @@ public class EmployeeAccess implements AccessStrategy {
 
         return validTime;
     }
-
 }
