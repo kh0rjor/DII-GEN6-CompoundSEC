@@ -16,4 +16,3 @@ public class AdminAccess implements AccessStrategy {
     }
 
 }
-

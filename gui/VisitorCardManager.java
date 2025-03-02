@@ -2,6 +2,8 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+
+import admin.VisitorCard;
 import userdata.UserData;
 import userdata.UserDataManager;
 import logging.AccessLogger;
@@ -71,14 +73,28 @@ public class VisitorCardManager extends JFrame {
         String floor = (String) floorComboBox.getSelectedItem();
         String room = (String) roomComboBox.getSelectedItem();
 
-        // Create a new UserData object and add it to the UserDataManager
+        // Create a new VisitorCard
+        VisitorCard visitorCard = new VisitorCard(name, id, floor, room);
         UserData userData = new UserData(name, id);
-        UserDataManager.addUser(name, id); // Collect user data in the UserDataManager
+        UserDataManager.addUser(name, id); // Add user to UserDataManager
 
-        // Optionally, you can log the creation of the card and show a confirmation message
+        // Log the creation of the visitor card
         logger.update("Added Visitor Card: " + name + " (" + id + ") - Floor: " + floor + ", Room: " + room);
-        JOptionPane.showMessageDialog(this, "Visitor Card Added!");
+
+        // Log if the visitor card is expired or valid
+        if (visitorCard.isCardExpired()) {
+            logger.update("Visitor Card Expired: " + name + " (" + id + ")");
+            JOptionPane.showMessageDialog(this, "Visitor Card Expired for: " + name);
+        } else {
+            logger.update("Visitor Card Valid: " + name + " (" + id + ")");
+            JOptionPane.showMessageDialog(this, "Visitor Card Added! Remaining Time: " + visitorCard.getRemainingTime());
+        }
+
+        // Specifically log the creation of the card for admin viewing
+        logger.logVisitorCard(name, id, visitorCard.isCardExpired(), visitorCard.getRemainingTime());
     }
+
+
 
     // Method to create the Edit Card section
     private JPanel createEditCardPanel() {

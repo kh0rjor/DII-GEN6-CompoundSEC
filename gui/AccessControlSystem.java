@@ -3,6 +3,7 @@ package gui;
 import access.AccessStrategy;
 import access.EmployeeAccess;
 import access.VisitorAccess;
+import admin.VisitorCard;
 import decorator.WeekendAccessDecorator;
 import logging.AccessLogger;
 import userdata.UserDataManager;
@@ -65,11 +66,29 @@ public class AccessControlSystem extends JFrame {
         // Store the user info in the UserDataManager when they log in
         UserDataManager.addUser(name, id);  // Add user to UserDataManager
 
-        // Check if role is selected and proceed accordingly
+        // Log first login and countdown for visitors
         if (role != null) {
+            if (role.equals("Visitor")) {
+                // Create a VisitorCard and check expiry
+                VisitorCard visitorCard = new VisitorCard(name, id, "Low Floor", "Lobby");
+
+                // Log Visitor Card Creation
+                logger.update("Visitor Card Created for: " + name + " (" + id + ")");
+
+                // Check for card expiration
+                if (visitorCard.isCardExpired()) {
+                    logger.update("Visitor Card Expired for: " + name + " (" + id + ")");
+                } else {
+                    logger.update("Visitor Card Valid: " + name + " (" + id + "), Remaining Time: " + visitorCard.getRemainingTime());
+                }
+
+                // Optionally show time countdown in UI (if needed)
+                JOptionPane.showMessageDialog(this, "Visitor Card Valid for 24 hours.\nRemaining Time: " + visitorCard.getRemainingTime());
+            }
+
             // Role validation based on selection
             if (role.equals("Admin")) {
-                // Create a JPasswordField for password input (hides the input)
+                // Admin login logic with password check
                 JPasswordField passwordField = new JPasswordField(10);
                 int option = JOptionPane.showConfirmDialog(this, passwordField,
                         "Enter Admin Password", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -77,11 +96,12 @@ public class AccessControlSystem extends JFrame {
                 if (option == JOptionPane.OK_OPTION) {
                     String password = new String(passwordField.getPassword());  // Get the password entered
 
-                    if (!"1234".equals(password)) {
+                    // Correct password check (password = 1234)
+                    if (!"1234".equals(password)) {  // Correct password is "1234"
                         JOptionPane.showMessageDialog(this, "Incorrect Password!", "Access Denied", JOptionPane.ERROR_MESSAGE);
-                        return;
+                        return;  // Exit if password is incorrect
                     }
-                    new AdminDashboard(logger);
+                    new AdminDashboard(logger);  // Proceed to Admin Dashboard if password is correct
                 } else {
                     // Handle cancel or dialog close
                     JOptionPane.showMessageDialog(this, "Password entry canceled", "Access Denied", JOptionPane.ERROR_MESSAGE);
@@ -104,7 +124,6 @@ public class AccessControlSystem extends JFrame {
             JOptionPane.showMessageDialog(this, "Please select a role!", "Access Denied", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 
     public static void main(String[] args) {
         new AccessControlSystem();

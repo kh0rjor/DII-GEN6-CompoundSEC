@@ -1,5 +1,6 @@
 package admin;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class VisitorCard {
@@ -9,6 +10,7 @@ public class VisitorCard {
     private String floor;
     private String room;
     private LocalDateTime createdTime; // Timestamp when the card was created
+    private static final Duration EXPIRY_DURATION = Duration.ofHours(24); // 24 hours validity
 
     public VisitorCard(String name, String id, String floor, String room) {
         this.name = name;
@@ -44,6 +46,17 @@ public class VisitorCard {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public boolean isCardExpired() {
+        // Check if the card is expired (more than 24 hours have passed)
+        return Duration.between(createdTime, LocalDateTime.now()).compareTo(EXPIRY_DURATION) > 0;
+    }
+
+    public String getRemainingTime() {
+        // Get remaining time until expiry
+        Duration remainingTime = EXPIRY_DURATION.minus(Duration.between(createdTime, LocalDateTime.now()));
+        return String.format("%d hours, %d minutes", remainingTime.toHours(), remainingTime.toMinutesPart());
     }
 
     @Override
