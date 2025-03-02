@@ -7,7 +7,7 @@ public class UserDataManager {
 
     private static List<UserData> userList = new ArrayList<>();
 
-    // Method to add a user
+    // Method to add a user (this method is called during both login and card creation)
     public static void addUser(String name, String id) {
         UserData newUser = new UserData(name, id);
         userList.add(newUser);

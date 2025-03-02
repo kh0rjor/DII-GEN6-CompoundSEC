@@ -62,6 +62,9 @@ public class AccessControlSystem extends JFrame {
         // Log name and ID for auditing purposes
         logger.setUserInfo(name, id);  // Save user info to the logger
 
+        // Store the user info in the UserDataManager when they log in
+        UserDataManager.addUser(name, id);  // Add user to UserDataManager
+
         // Check if role is selected and proceed accordingly
         if (role != null) {
             // Role validation based on selection
@@ -102,8 +105,8 @@ public class AccessControlSystem extends JFrame {
         }
     }
 
+
     public static void main(String[] args) {
         new AccessControlSystem();
     }
 }
-

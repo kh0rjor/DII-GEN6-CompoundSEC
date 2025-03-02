@@ -130,18 +130,20 @@ public class VisitorCardManager extends JFrame {
         }
     }
 
-    // Method to search and edit the visitor card (from UserDataManager)
     private void searchVisitorCardForEditing() {
         String searchTerm = searchFieldForEdit.getText().trim();
-        UserData card = UserDataManager.getUserByNameOrId(searchTerm);
 
-        if (card != null) {
+        // First, search the UserDataManager to see if the card was created during login or later
+        UserData user = UserDataManager.getUserByNameOrId(searchTerm);
+
+        if (user != null) {
             // Once found, allow editing the card (example: update the room and floor)
-            editVisitorCard(card);  // This method will handle editing the card
+            editVisitorCard(user);  // This method will handle editing the card
         } else {
             JOptionPane.showMessageDialog(this, "Visitor Card not found!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     // Method to edit the visitor card
     private void editVisitorCard(UserData card) {
